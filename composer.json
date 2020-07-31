@@ -1,0 +1,19 @@
+	{
+	"name": "medansoftware/kmeans-algorithm-php",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Medan Software",
+			"email": "developer@medansoftware.com"
+		}
+	],
+	"require": {
+		"php": ">=5.5"
+	},
+	"autoload": {
+		"classmap": [
+			"src"
+		]
+	}
+}
