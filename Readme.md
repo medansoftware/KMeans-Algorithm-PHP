@@ -1,7 +1,12 @@
 # PHP K-Means Library
 
-## How to use
+## Installation via [composer](https://getcomposer.org)
 
+```bash
+composer require medansoftware/kmeans-algorithm-php
+```
+
+## How to use
 
 ### Example 1 [Video Refrence](https://www.youtube.com/watch?v=MayK_kwJgv4)
 
