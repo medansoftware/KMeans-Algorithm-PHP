@@ -3,7 +3,7 @@ namespace Algorithm;
 
 /**
  * @package Algorithm
- * @subpackage Kmeans 
+ * @subpackage Kmeans
  * @category Library
  * @author Agung Dirgantara <agungmasda29@gmail.com>
  */
@@ -32,7 +32,7 @@ class Kmeans {
 
 	/**
 	 * Set attributes
-	 * 
+	 *
 	 * @param array $attributes
 	 */
 	public function setAttributes($attributes = array()) {
@@ -61,7 +61,7 @@ class Kmeans {
 
 	/**
 	 * Set cluster count
-	 * 
+	 *
 	 * @param integer $cluster
 	 */
 	public function setClusterCount($cluster = NULL) {
@@ -75,7 +75,7 @@ class Kmeans {
 
 	/**
 	 * Generate cluster
-	 * 
+	 *
 	 * @return array
 	 */
 	public function generateCluster() {
@@ -105,7 +105,7 @@ class Kmeans {
 
 	/**
 	 * Set iteration
-	 * 
+	 *
 	 * @param integer $iteration
 	 */
 	public function setIteration($iteration = 0) {
@@ -115,7 +115,7 @@ class Kmeans {
 
 	/**
 	 * Set centroids
-	 * 
+	 *
 	 * @param mixed $centroids
 	 * @return \Kmeans
 	 */
@@ -131,7 +131,13 @@ class Kmeans {
 			}
 		} else {
 			if (is_array($centroids)) {
-				$this->centroids = $centroids;
+				if ($this->array_has_values($centroids)) {
+					$this->centroids = $centroids;
+				} else {
+					foreach ($centroids as $centroid) {
+						$this->centroids[] = $this->data[$centroid];
+					}
+				}
 			} else {
 				$this->generateCentroids();
 			}
@@ -141,23 +147,52 @@ class Kmeans {
 	}
 
 	/**
+	 * Determines whether the specified array is associative array.
+	 *
+	 * @param      array  $array
+	 *
+	 * @return     bool
+	 */
+	private function array_has_values(array $array)
+	{
+		$array = array_map(function($value) {
+			if (is_array($value) OR is_object($value)) {
+				return TRUE;
+			}
+
+			return FALSE;
+		}, $array);
+
+		$array = array_filter($array);
+		return count($array) > 0;
+	}
+
+
+	/**
 	 * Generate centroids
-	 * 
+	 *
 	 * @return \Kmeans
 	 */
 	public function generateCentroids() {
 
-		for ($i = 0; $i < $this->cluster; $i++) {
+		$centroids = array();
 
-			$this->centroids[] = $this->data[$i];
+		for ($i = 0; $i < $this->cluster; $i++) {
+			$data = array_diff(array_keys($this->data), array_keys($centroids));
+			$random_choose = array_rand($data);
+			$centroids[$random_choose] = $this->data[$random_choose];
 		}
+
+		array_map(function($centroid) {
+			array_push($this->centroids, $centroid);
+		}, $centroids);
 
 		return $this;
 	}
 
 	/**
 	 * Create new centroid
-	 * 
+	 *
 	 * @param  array $centroid
 	 * @param  array $group
 	 * @return array
@@ -197,7 +232,7 @@ class Kmeans {
 
 	/**
 	 * Count distance
-	 * 
+	 *
 	 * @param  integer $dataInK    [description]
 	 * @param  integer $clusterInK [description]
 	 * @return numeric
@@ -215,7 +250,7 @@ class Kmeans {
 
 	/**
 	 * Run Kmeans
-	 * 
+	 *
 	 * @param  integer $cluster
 	 * @return array
 	 */
@@ -288,7 +323,7 @@ class Kmeans {
 
 	/**
 	 * Count iterations
-	 * 
+	 *
 	 * @return integer
 	 */
 	public function countIterations() {
@@ -297,7 +332,7 @@ class Kmeans {
 
 	/**
 	 * Get attributes;
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getAttributes() {
@@ -306,7 +341,7 @@ class Kmeans {
 
 	/**
 	 * Get data
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getData() {
@@ -315,7 +350,7 @@ class Kmeans {
 
 	/**
 	 * Get last centroid
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getCentroid() {
@@ -323,8 +358,15 @@ class Kmeans {
 	}
 
 	/**
+	 * Get initial centroid
+	 */
+	public function getInitialCentroid() {
+		return $this->centroids;
+	}
+
+	/**
 	 * Get clusters
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getClusters() {
@@ -333,7 +375,7 @@ class Kmeans {
 
 	/**
 	 * Get logs
-	 * 
+	 *
 	 * @param  string $key one of : iterations, clusters, centroids
 	 * @return array
 	 */
@@ -345,7 +387,7 @@ class Kmeans {
 
 	/**
 	 * Get all results
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getAllResults() {
@@ -360,7 +402,7 @@ class Kmeans {
 
 	/**
 	 * Catch logs
-	 * 
+	 *
 	 * @return array
 	 */
 	public function catchLogs() {
@@ -369,7 +411,7 @@ class Kmeans {
 
 	/**
 	 * Reset centroid data
-	 * 
+	 *
 	 * @return \Kmeans
 	 */
 	public function resetCentroid() {
@@ -379,7 +421,7 @@ class Kmeans {
 
 	/**
 	 * Check kmeans is success
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function isDone() {

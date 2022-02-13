@@ -44,10 +44,6 @@ for (; ; ) {
 	}
 	$i++;
 }
-
-echo "<pre>";
-print_r ($Kmeans);
-echo "</pre>";
 ```
 
 ### Example 2 [Video Refrence](https://www.youtube.com/watch?v=FUwxw9Rv4Ls)
@@ -91,22 +87,18 @@ for (; ; ) {
 	}
 	$i++;
 }
-
-echo "<pre>";
-print_r ($Kmeans);
-echo "</pre>";
 ```
 
 ---
 
 Langkah-langkah & Catatan : 
 
-1.) Hitung jumlah data.
-2.) Tentukan jumlah "K" atau cluster (tidak boleh lebih dari jumlah data).
-3.) Pilih titik secara acak sebanyak "K", dimana titik ini akan menjadi pusat (centroid) dari masing-masing kelompok (clusters).
-4.) Hitung jarak dan alokasikan masing-masing data ke centroid atau rata-rata terdekat.
-5.) Tentukan centroid baru / rata-rata yang ada di masing-masing cluster.
-6.) Kembali ke step 3, apabila masih ada data yang berpindah cluster atau ada perubahan nilai centroid atau jika tidak ada perubahan maka hentikan proses clustering.
+1. Hitung jumlah data.
+2. Tentukan jumlah "K" atau cluster (tidak boleh lebih dari jumlah data).
+3. Pilih titik secara acak sebanyak "K", dimana titik ini akan menjadi pusat (centroid) dari masing-masing kelompok (clusters).
+4. Hitung jarak dan alokasikan masing-masing data ke centroid atau rata-rata terdekat.
+5. Tentukan centroid baru / rata-rata yang ada di masing-masing cluster.
+6. Kembali ke step 3, apabila masih ada data yang berpindah cluster atau ada perubahan nilai centroid atau jika tidak ada perubahan maka hentikan proses clustering.
 
 ---
 
